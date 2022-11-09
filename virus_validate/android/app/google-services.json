@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1032918260053",
+    "project_id": "virusvalidate",
+    "storage_bucket": "virusvalidate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032918260053:android:178392d41f7097580fb7dc",
+        "android_client_info": {
+          "package_name": "com.example.virus_validate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032918260053-8gdftt826cpuqfmuc8lig29jf0s0h36j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUfsMYE4vNhCiakVfdgs9rJhKUCXrZ8f0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032918260053-8gdftt826cpuqfmuc8lig29jf0s0h36j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
