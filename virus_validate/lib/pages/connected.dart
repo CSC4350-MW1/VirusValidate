@@ -7,7 +7,6 @@ import 'package:virus_validate/pages/home.dart';
 class Connected extends StatelessWidget {
   Connected({Key? key}) : super(key: key);
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
   @override
   Widget build(BuildContext context) {
     var stream = _auth.idTokenChanges();

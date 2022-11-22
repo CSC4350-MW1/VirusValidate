@@ -66,15 +66,7 @@ class _LoginFormState extends State<LoginForm> {
                 });
               }, 
               child: const Text("Forgot Password")
-              ),
-              const SizedBox(height: 10,),
-              OutlinedButton(onPressed: () {
-                //Navigator.pushReplacement(
-                // context,
-                //MaterialPageRoute(builder: (BuildContext context) => const RegistrationPage()));
-              }, 
-              child: const Text("Sign-Up")
-              ),           
+              ),       
             ],
           )
         )
