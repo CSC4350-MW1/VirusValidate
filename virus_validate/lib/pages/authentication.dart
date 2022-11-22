@@ -16,10 +16,9 @@ class _AuthenticationFormState extends State<Authentication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("SocM"),),
+      appBar: AppBar(title: const Text("Virus Validate"),),
       body: Column(children: [
-      Image.asset("images/fistbump@3x.png", width: 300,),
-      const LoginForm()
+      const LoginForm(),
       ],),
     );
   }

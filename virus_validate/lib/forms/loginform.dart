@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:virus_validate/pages/home.dart';
 import 'package:virus_validate/style/style.dart';
 
 
@@ -95,15 +96,15 @@ class _LoginFormState extends State<LoginForm> {
       email: _email.text, password: _password.text);
 
       if(loginResponse.user!.emailVerified) {
-        //Navigator.pushReplacement(
-          //context,
-          //MaterialPageRoute(builder: (BuildContext context) => const HomePage()));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => const HomePage()));
       } else {
         snackBar(context, "User logged in but email is not verified");
         loginResponse.user!.sendEmailVerification();
-        //Navigator.pushReplacement(
-          //context,
-          //MaterialPageRoute(builder: (BuildContext context) => const HomePage()));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => const HomePage()));
       }
 
       setState(() {
