@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:virus_validate/pages/new_meeting.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,7 +34,9 @@ class _HomeState extends State<HomePage> {
             padding: const EdgeInsets.only(right: 20.0),
             child: GestureDetector(
               onTap: () {
-                
+                Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => const NewMeetingPage()));
               },
               child: const Icon(Icons.note_add_outlined),
             ),
