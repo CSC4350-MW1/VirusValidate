@@ -17,6 +17,7 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
   final _formKey = GlobalKey<FormState>();
   
   DateTime? meetingDate;
+  TimeOfDay? startTime;
   
   
   Future<void> _showDatePicker() async {
@@ -33,6 +34,22 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
     }
     setState(() {
       meetingDate = selectedDate;
+    });
+  }
+
+  Future<void> _showTimePicker() async {
+    TimeOfDay timeNow = TimeOfDay.now();
+
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: context, 
+      initialTime: timeNow
+    );
+
+    if (pickedTime == null) {
+      return ;
+    }
+    setState(() {
+      startTime = pickedTime;
     });
   }
 
@@ -55,6 +72,20 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
                   GestureDetector(
                     onTap: _showDatePicker,
                     child: const Icon(Icons.calendar_today_sharp),
+                  )
+                ],
+              ),
+              const Text("Start Time"),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text((startTime != null) ? startTime.toString() : "Valid Start Time not Selected"),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      _showTimePicker();
+                    },
+                    child: const Icon(Icons.alarm_add_sharp),
                   )
                 ],
               ),
