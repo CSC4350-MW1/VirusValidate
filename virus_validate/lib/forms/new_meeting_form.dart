@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:virus_validate/firestore_service.dart';
-import 'package:virus_validate/helpers/date_input_card.dart';
 import 'package:virus_validate/style/style.dart';
 
 class NewMeetingForm extends StatefulWidget {
@@ -102,10 +101,48 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
               const Divider(
                 thickness: 3.0
               ),
-              myHeaderText("Guests"),
-             /*  ListView.builder(
-                itemBuilder: itemBuilder
-                ), */
+              Row(
+                children: [
+                  Expanded(child: myHeaderText("Guests")),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        guestEmails.add(TextEditingController());
+                      });
+                    },
+                    child: const Icon(Icons.add),
+                  )
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: guestEmails.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                      child: TextFormField(
+                        controller: guestEmails[index],
+                        decoration: inputStyling("Guest Email"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Email must not be empty";
+                          }
+                          if (!value.contains('@')) {
+                            return "Email is in wrong format";
+                          }
+                          return null;
+                        },
+                      )
+                    );
+                  }
+                )
+              ),
+              ElevatedButton(
+                onPressed: (() {
+                  guestEmails.add(TextEditingController());
+                }), 
+                child: const Text("Guest Email")
+              ),
             ],
           ),
         ),
