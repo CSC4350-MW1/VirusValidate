@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/helpers/date_input_card.dart';
+import 'package:virus_validate/style/style.dart';
 
 class NewMeetingForm extends StatefulWidget {
   const NewMeetingForm({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
   
   DateTime? meetingDate;
   TimeOfDay? startTime;
+
+  List<TextEditingController> guestEmails = <TextEditingController>[];
   
   
   Future<void> _showDatePicker() async {
@@ -61,15 +64,16 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10.0,),
-              const Text("Meeting Date"),
+              myHeaderText("Meeting Date"),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Row(
                   children: [
                     Expanded(
-                      child: Text((meetingDate != null) ? meetingDate.toString() : "Valid Date not Selected")
+                      child: myStandardText((meetingDate != null) ? meetingDate.toString() : "Valid Date not Selected")
                     ),
                     GestureDetector(
                       onTap: _showDatePicker,
@@ -81,11 +85,11 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
               const Divider(
                 thickness: 3.0,
               ),
-              const Text("Start Time"),
+              myHeaderText("Start Time"),
               Row(
                 children: [
                   Expanded(
-                    child: Text((startTime != null) ? startTime.toString() : "Valid Start Time not Selected"),
+                    child: myStandardText((startTime != null) ? startTime.toString() : "Valid Start Time not Selected"),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -95,6 +99,13 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
                   )
                 ],
               ),
+              const Divider(
+                thickness: 3.0
+              ),
+              myHeaderText("Guests"),
+             /*  ListView.builder(
+                itemBuilder: itemBuilder
+                ), */
             ],
           ),
         ),
