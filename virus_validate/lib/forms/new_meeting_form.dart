@@ -64,16 +64,22 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
             children: [
               const SizedBox(height: 10.0,),
               const Text("Meeting Date"),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text((meetingDate != null) ? meetingDate.toString() : "Valid Date not Selected")
-                  ),
-                  GestureDetector(
-                    onTap: _showDatePicker,
-                    child: const Icon(Icons.calendar_today_sharp),
-                  )
-                ],
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text((meetingDate != null) ? meetingDate.toString() : "Valid Date not Selected")
+                    ),
+                    GestureDetector(
+                      onTap: _showDatePicker,
+                      child: const Icon(Icons.calendar_today_sharp),
+                    )
+                  ],
+                ),
+              ),
+              const Divider(
+                thickness: 3.0,
               ),
               const Text("Start Time"),
               Row(
