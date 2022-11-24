@@ -137,12 +137,6 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
                   }
                 )
               ),
-              ElevatedButton(
-                onPressed: (() {
-                  guestEmails.add(TextEditingController());
-                }), 
-                child: const Text("Guest Email")
-              ),
             ],
           ),
         ),
