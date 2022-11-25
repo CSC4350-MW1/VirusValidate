@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/style/style.dart';
 
@@ -15,9 +16,13 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
 
   bool loading = false;
   final _formKey = GlobalKey<FormState>();
+
+  DateFormat myDateFormat = DateFormat('MM-dd-yyyy');
+  DateFormat myTimeFormat = DateFormat('h:mm a');
   
-  DateTime? meetingDate;
-  TimeOfDay? startTime;
+  DateTime? meetingDateStartTime;
+  DateTime? meetingDateEndTime;
+
 
   List<TextEditingController> guestEmails = <TextEditingController>[];
   
@@ -35,11 +40,11 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
       return ;
     }
     setState(() {
-      meetingDate = selectedDate;
+      meetingDateStartTime = selectedDate;
     });
   }
 
-  Future<void> _showTimePicker() async {
+  Future<void> _showStartTimePicker() async {
     TimeOfDay timeNow = TimeOfDay.now();
 
     TimeOfDay? pickedTime = await showTimePicker(
@@ -51,7 +56,23 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
       return ;
     }
     setState(() {
-      startTime = pickedTime;
+      meetingDateStartTime = DateTime(meetingDateStartTime!.year, meetingDateStartTime!.month, meetingDateStartTime!.day, pickedTime.hour, pickedTime.minute);
+    });
+  }
+
+  Future<void> _showEndTimePicker() async {
+    TimeOfDay timeNow = TimeOfDay.now();
+
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: context, 
+      initialTime: timeNow
+    );
+
+    if (pickedTime == null) {
+      return ;
+    }
+    setState(() {
+      meetingDateEndTime = DateTime(meetingDateStartTime!.year, meetingDateStartTime!.month, meetingDateStartTime!.day, pickedTime.hour, pickedTime.minute);
     });
   }
 
@@ -72,7 +93,7 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: myStandardText((meetingDate != null) ? meetingDate.toString() : "Valid Date not Selected")
+                      child: myStandardText((meetingDateStartTime != null) ? myDateFormat.format(meetingDateStartTime!) : "Valid Date not Selected")
                     ),
                     GestureDetector(
                       onTap: _showDatePicker,
@@ -88,11 +109,26 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
               Row(
                 children: [
                   Expanded(
-                    child: myStandardText((startTime != null) ? startTime.toString() : "Valid Start Time not Selected"),
+                    child: myStandardText((meetingDateStartTime != null) ? myTimeFormat.format(meetingDateStartTime!) : "Valid Start Time not Selected"),
                   ),
                   GestureDetector(
                     onTap: () {
-                      _showTimePicker();
+                      _showStartTimePicker();
+                    },
+                    child: const Icon(Icons.alarm_add_sharp),
+                  )
+                ],
+              ),
+              const Divider(thickness: 3.0,),
+              myHeaderText("End Time"),
+              Row(
+                children: [
+                  Expanded(
+                    child: myStandardText((meetingDateEndTime != null) ? myTimeFormat.format(meetingDateEndTime!) : "Valid Start Time not Selected"),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      _showEndTimePicker();
                     },
                     child: const Icon(Icons.alarm_add_sharp),
                   )
