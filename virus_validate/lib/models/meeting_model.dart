@@ -1,6 +1,7 @@
 
 
 class Meeting {
+  final String id;
   final String title;
   final String description;
   final String employee;
@@ -9,6 +10,7 @@ class Meeting {
   final List<String> guestList;
 
   Meeting({
+    required this.id,
     required this.title,
     required this.description,
     required this.employee,
@@ -17,11 +19,12 @@ class Meeting {
     required this.guestList
   });
 
-  factory Meeting.fromJson(String employee, Map<String, dynamic> data) {
+  factory Meeting.fromJson(String id, Map<String, dynamic> data) {
     return Meeting(
+      id: id,
       title: data["title"],
       description: data["description"],
-      employee: employee, 
+      employee: data["employee"], 
       startTime: data["startTime"], 
       endTime: data["endTime"], 
       guestList: data["guestList"]

@@ -270,12 +270,12 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
         
         for (var guestEmail in guestEmails) {
           try {
-            UserCredential registrationResponse = await _fs.auth.createUserWithEmailAndPassword(
-            email: guestEmail.text, password: '1234567890');
+            //UserCredential registrationResponse = await _fs.auth.createUserWithEmailAndPassword(
+            //email: guestEmail.text, password: '1234567890');
 
             // Add email and uid to guestIDs map
-            guestIDs[guestEmail.text] = registrationResponse.user!.uid;
-            
+            //guestIDs[guestEmail.text] = registrationResponse.user!.uid;
+            guestIDs[guestEmail.text] = guestEmail.text;
           } catch(e) {
             // Email is already in use
             if (e is PlatformException) {
@@ -297,7 +297,7 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
           // Create or update all guest accounts
           for (var guestID in guestIDs.keys) {
             // TODO Add meeting to list of meetings for guests
-            
+
             _fs.meetingCollection.doc(guestIDs[guestID]).set(
               {
                 "email": guestID,
