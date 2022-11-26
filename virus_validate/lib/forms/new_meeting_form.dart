@@ -1,5 +1,8 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/style/style.dart';
@@ -258,5 +261,56 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
         ),
       )
     );
+  }
+  
+  Future<bool> createMeeting() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        Map<String, String> guestIDs = {};
+        
+        for (var guestEmail in guestEmails) {
+          try {
+            UserCredential registrationResponse = await _fs.auth.createUserWithEmailAndPassword(
+            email: guestEmail.text, password: '1234567890');
+
+            // Add email and uid to guestIDs map
+            guestIDs[guestEmail.text] = registrationResponse.user!.uid;
+            
+          } catch(e) {
+            // Email is already in use
+            if (e is PlatformException) {
+              // TODO Search Guest Documents with guest email to retrieve uid
+
+            }
+          }
+          // Create Meeting and store document ID to update user lists
+          DocumentReference meetingDoc = await _fs.meetingCollection.add(
+            {
+              'title': _meetingTitle.text,
+              'description': _meetingDescription,
+              'employee': _fs.getUserID(),
+              'startTime': meetingDateStartTime,
+              'endTime': meetingDateEndTime,
+              'guestList': guestIDs
+            }
+          );
+          // Create or update all guest accounts
+          for (var guestID in guestIDs.keys) {
+            // TODO Add meeting to list of meetings for guests
+            
+            _fs.meetingCollection.doc(guestIDs[guestID]).set(
+              {
+                "email": guestID,
+              }
+            );
+          }
+          return true;
+        }
+      } catch(e) {
+        snackBar(context, e.toString());
+        return false;
+      }
+    }
+    return false;
   }
 }
