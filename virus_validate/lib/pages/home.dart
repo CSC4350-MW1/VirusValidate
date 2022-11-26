@@ -1,7 +1,9 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:virus_validate/forms/new_meeting_form.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
+import 'package:virus_validate/pages/symptom_questionnaire.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,6 +31,15 @@ class _HomeState extends State<HomePage> {
           ),
         ),
         actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => const SymptomQuestionnaire())
+              );
+            },
+            child: const Icon(Icons.coronavirus_rounded),
+          ),
           // Create New Meeting
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
