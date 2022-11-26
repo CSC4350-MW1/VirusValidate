@@ -24,7 +24,7 @@ class FirestoreService {
   Stream<List<Meeting>> get meetings => _meetingsController.stream;
 
   FirestoreService() {
-    meetingCollection.snapshots().listen(_meetingsUpdated);
+    // meetingCollection.snapshots().listen(_meetingsUpdated);
   }
 
   void _meetingsUpdated(QuerySnapshot<Map<String, dynamic>> snapshot) {
