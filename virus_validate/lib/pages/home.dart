@@ -57,3 +57,20 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
     );
   }
 }
+
+class GuestHomePage extends StatefulWidget {
+  const GuestHomePage({Key? key}) : super(key: key);
+  
+  @override
+  State<StatefulWidget> createState() => _GuestHomePageState();
+
+}
+
+class _GuestHomePageState extends State<GuestHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
+}
