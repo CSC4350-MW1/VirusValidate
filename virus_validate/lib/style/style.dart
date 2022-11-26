@@ -33,3 +33,13 @@ myStandardText(String text) {
     ),
   );
 }
+
+OutlineInputBorder myInputBorder(){ //return type is OutlineInputBorder
+  return const OutlineInputBorder( //Outline border type for TextFeild
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    borderSide: BorderSide(
+        // color:Colors.redAccent,
+        width: 3,
+      )
+  );
+}

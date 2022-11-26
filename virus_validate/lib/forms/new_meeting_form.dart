@@ -23,6 +23,7 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
   DateTime? meetingDateStartTime;
   DateTime? meetingDateEndTime;
 
+  TextEditingController meetingTitle = TextEditingController();
 
   List<TextEditingController> guestEmails = <TextEditingController>[];
   
@@ -56,7 +57,13 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
       return ;
     }
     setState(() {
-      meetingDateStartTime = DateTime(meetingDateStartTime!.year, meetingDateStartTime!.month, meetingDateStartTime!.day, pickedTime.hour, pickedTime.minute);
+      if (meetingDateStartTime != null) {
+        meetingDateStartTime = DateTime(meetingDateStartTime!.year, meetingDateStartTime!.month, meetingDateStartTime!.day, pickedTime.hour, pickedTime.minute);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Please select a date before selecting the start time")
+        ));
+      }
     });
   }
 
@@ -72,7 +79,13 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
       return ;
     }
     setState(() {
-      meetingDateEndTime = DateTime(meetingDateStartTime!.year, meetingDateStartTime!.month, meetingDateStartTime!.day, pickedTime.hour, pickedTime.minute);
+      if (meetingDateStartTime != null) {
+        meetingDateEndTime = DateTime(meetingDateStartTime!.year, meetingDateStartTime!.month, meetingDateStartTime!.day, pickedTime.hour, pickedTime.minute);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Please select a date and start time before selecting the end time")
+        ));
+      }
     });
   }
 
@@ -87,6 +100,16 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10.0,),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                child: TextField(
+                  controller: meetingTitle,
+                  minLines: 1,
+                  maxLines: 2,
+                  decoration: inputStyling('Meeting Title'),
+                ),
+              ),
+              const Divider(thickness: 3.0,), 
               myHeaderText("Meeting Date"),
               Padding(
                 padding: const EdgeInsets.all(5.0),
