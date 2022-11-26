@@ -117,7 +117,6 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
                 ),
               ),
               const Divider(thickness: 3.0,),
-              const SizedBox(height: 10.0,),
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
@@ -133,69 +132,104 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
                   },
                 ),
               ),
-              myHeaderText("Meeting Date"),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
+              const Divider(thickness: 3.0,),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
                   children: [
-                    Expanded(
-                      child: myStandardText((meetingDateStartTime != null) ? myDateFormat.format(meetingDateStartTime!) : "Valid Date not Selected")
+                    myHeaderText("Meeting Date"), 
+                    const SizedBox(height: 10.0,),                   
+                    Row(
+                      children: [
+                        Expanded(
+                          child: myStandardText((meetingDateStartTime != null) ? myDateFormat.format(meetingDateStartTime!) : "Valid Date not Selected")
+                        ),
+                        GestureDetector(
+                          onTap: _showDatePicker,
+                          child: const Icon(Icons.calendar_today_sharp),
+                        )
+                      ],
                     ),
-                    GestureDetector(
-                      onTap: _showDatePicker,
-                      child: const Icon(Icons.calendar_today_sharp),
-                    )
                   ],
                 ),
               ),
               const Divider(
                 thickness: 3.0,
               ),
-              myHeaderText("Start Time"),
-              Row(
-                children: [
-                  Expanded(
-                    child: myStandardText((meetingDateStartTime != null) ? myTimeFormat.format(meetingDateStartTime!) : "Valid Start Time not Selected"),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _showStartTimePicker();
-                    },
-                    child: const Icon(Icons.alarm_add_sharp),
-                  )
-                ],
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    myHeaderText("Start Time"),
+                    const SizedBox(height: 3.0,),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: myStandardText((meetingDateStartTime != null) ? myTimeFormat.format(meetingDateStartTime!) : "Valid Start Time not Selected"),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _showStartTimePicker();
+                          },
+                          child: const Icon(Icons.alarm_add_sharp),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const Divider(thickness: 3.0,),
-              myHeaderText("End Time"),
-              Row(
-                children: [
-                  Expanded(
-                    child: myStandardText((meetingDateEndTime != null) ? myTimeFormat.format(meetingDateEndTime!) : "Valid Start Time not Selected"),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _showEndTimePicker();
-                    },
-                    child: const Icon(Icons.alarm_add_sharp),
-                  )
-                ],
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    myHeaderText("End Time"),
+                    const SizedBox(height: 3.0,),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: myStandardText((meetingDateEndTime != null) ? myTimeFormat.format(meetingDateEndTime!) : "Valid Start Time not Selected"),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _showEndTimePicker();
+                          },
+                          child: const Icon(Icons.alarm_add_sharp),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const Divider(
                 thickness: 3.0
               ),
-              Row(
-                children: [
-                  Expanded(child: myHeaderText("Guests")),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        guestEmails.add(TextEditingController());
-                      });
-                    },
-                    child: const Icon(Icons.add),
-                  )
-                ],
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    guestEmails.add(TextEditingController());
+                  });
+                },
+                child: Row(
+                  children: const [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text(
+                          "Guests",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: largeText,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      )
+                    ),
+                    Icon(Icons.add)
+                  ],
+                ),
               ),
+              
               Expanded(
                 child: ListView.builder(
                   itemCount: guestEmails.length,
