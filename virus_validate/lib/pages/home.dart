@@ -35,6 +35,15 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
             onTap: () {
               Navigator.push(
                 context, 
+                MaterialPageRoute(builder: (context) => const GuestHomePage())
+              );
+            },
+            child: const Icon(Icons.person),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context, 
                 MaterialPageRoute(builder: (context) => const SymptomQuestionnaire())
               );
             },
