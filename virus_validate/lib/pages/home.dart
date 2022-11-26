@@ -69,8 +69,34 @@ class GuestHomePage extends StatefulWidget {
 class _GuestHomePageState extends State<GuestHomePage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Guest Homepage'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  
+                },
+                child: const Text('Health Screening'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  
+                },
+                child: const Text('Unlock Door')
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
-
 }
