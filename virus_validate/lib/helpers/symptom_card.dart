@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virus_validate/style/style.dart';
 
 class SymptomCard extends StatelessWidget {
   const SymptomCard({super.key, required this.text});
@@ -7,7 +8,9 @@ class SymptomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Text(text),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: myStandardText(text)),
     );
   }
 }

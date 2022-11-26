@@ -90,13 +90,13 @@ class _LoginFormState extends State<LoginForm> {
       if(loginResponse.user!.emailVerified) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => const HomePage()));
+          MaterialPageRoute(builder: (BuildContext context) => const EmployeeHomePage()));
       } else {
         snackBar(context, "User logged in but email is not verified");
         loginResponse.user!.sendEmailVerification();
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => const HomePage()));
+          MaterialPageRoute(builder: (BuildContext context) => const EmployeeHomePage()));
       }
 
       setState(() {

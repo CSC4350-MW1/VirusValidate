@@ -5,14 +5,14 @@ import 'package:virus_validate/forms/new_meeting_form.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
 import 'package:virus_validate/pages/symptom_questionnaire.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class EmployeeHomePage extends StatefulWidget {
+  const EmployeeHomePage({Key? key}) : super(key: key);
   
   @override
-  State<StatefulWidget> createState() => _HomeState();
+  State<StatefulWidget> createState() => _EmployeeHomeState();
 }
 
-class _HomeState extends State<HomePage> {
+class _EmployeeHomeState extends State<EmployeeHomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   
   @override

@@ -12,7 +12,7 @@ class Connected extends StatelessWidget {
     var stream = _auth.idTokenChanges();
     stream.listen((event) { });
     if (_auth.currentUser != null) {
-      return const HomePage();
+      return const EmployeeHomePage();
     } else {
       return const Authentication();
     }

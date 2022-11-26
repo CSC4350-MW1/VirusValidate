@@ -47,19 +47,26 @@ class _SymptomQuestionnaireState extends State<SymptomQuestionnaire> {
             }
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: ElevatedButton(
+                onPressed: (() {
+                  
+                }), 
+                child: const Text("Yes")
+              ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: ElevatedButton(
                 onPressed: (() {
                   
                 }), 
                 child: const Text("No")
               ),
-              ElevatedButton(
-                onPressed: (() {
-                  
-                }), 
-                child: const Text("Yes")
-                )
+              ),
             ],
           )
         ]
