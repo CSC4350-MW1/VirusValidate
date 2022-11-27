@@ -303,10 +303,10 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
 
             // Add email and uid to guestIDs map
             guestIDs[guestEmail.text] = registrationResponse.user!.uid;
-            _fs.guestCollection.doc(guestEmail.text).set(
+            _fs.guestCollection.doc(guestIDs[guestEmail.text]).set(
               {
-                "id": guestIDs[guestEmail.text],
-                "sick": false,
+                "email": guestEmail.text,
+                "isSick": false,
                 "completedHealthScreen": false
               }
             );
