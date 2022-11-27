@@ -7,7 +7,7 @@ class Meeting {
   final String employee;
   final DateTime startTime;
   final DateTime endTime; 
-  final List<String> guestList;
+  final Map<String, dynamic> guestList;
 
   Meeting({
     required this.id,
@@ -25,8 +25,8 @@ class Meeting {
       title: data["title"],
       description: data["description"],
       employee: data["employee"], 
-      startTime: data["startTime"], 
-      endTime: data["endTime"], 
+      startTime: DateTime.fromMicrosecondsSinceEpoch(data["startTime"].microsecondsSinceEpoch), 
+      endTime: DateTime.fromMicrosecondsSinceEpoch(data["endTime"].microsecondsSinceEpoch), 
       guestList: data["guestList"]
     );
   }
