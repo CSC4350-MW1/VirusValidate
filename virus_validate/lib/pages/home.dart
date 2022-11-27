@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:virus_validate/firestoreExample/firestore_example.dart';
 import 'package:virus_validate/forms/new_meeting_form.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
 import 'package:virus_validate/pages/symptom_questionnaire.dart';
+import 'package:virus_validate/widgets/loading.dart';
 
 class EmployeeHomePage extends StatefulWidget {
   const EmployeeHomePage({Key? key}) : super(key: key);
@@ -65,6 +65,33 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
             ),
           ),
         ],
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _meetingStream,
+        builder: ((BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text("Error Occurred");
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData) {
+            return const Loading();
+          }
+
+          return ListView(
+          children: snapshot.data!.docs
+              .map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
+                return ListTile(
+                  title: Text(data['title']),
+                  subtitle: Text(data['description']),
+                );
+              })
+              .toList()
+              .cast(),
+        );
+
+        }),
       ),
     );
   }
