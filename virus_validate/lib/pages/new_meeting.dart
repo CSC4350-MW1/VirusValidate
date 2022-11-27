@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -35,10 +36,29 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("New Meeting"),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: Icon(Icons.send_sharp),
+            padding: const EdgeInsets.only(right: 20.0),
+            child: GestureDetector(
+              onTap: (() async {
+                bool otherFields = true;
+                if (meetingDateStartTime == null || meetingDateEndTime == null || guestEmails.isEmpty) {
+                  otherFields = false;
+                }
+                bool result = false;
+                if (_formKey.currentState!.validate() && otherFields) {
+                  try {
+                    result = await createMeeting();
+                  } catch(e) {
+                    snackBar(context, e.toString());
+                  }
+                }
+                if (result) {
+                  Navigator.pop(context);
+                }
+              }),
+              child: const Icon(Icons.send_sharp),
+            ),
           ),
         ],
       ),
@@ -278,12 +298,17 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
         
         for (var guestEmail in guestEmails) {
           try {
-            //UserCredential registrationResponse = await _fs.auth.createUserWithEmailAndPassword(
-            //email: guestEmail.text, password: '1234567890');
+            UserCredential registrationResponse = await _fs.auth.createUserWithEmailAndPassword(
+            email: guestEmail.text, password: '1234567890');
 
             // Add email and uid to guestIDs map
-            //guestIDs[guestEmail.text] = registrationResponse.user!.uid;
-            guestIDs[guestEmail.text] = guestEmail.text;
+            guestIDs[guestEmail.text] = registrationResponse.user!.uid;
+            _fs.guestCollection.doc(guestIDs[guestEmail.text]).set(
+              {
+                "email": guestEmail.text,
+              }
+            );
+            //guestIDs[guestEmail.text] = guestEmail.text;
           } catch(e) {
             // Email is already in use
             if (e is PlatformException) {
@@ -295,7 +320,7 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
           DocumentReference meetingDoc = await _fs.meetingCollection.add(
             {
               'title': _meetingTitle.text,
-              'description': _meetingDescription,
+              'description': _meetingDescription.text,
               'employee': _fs.getUserID(),
               'startTime': meetingDateStartTime,
               'endTime': meetingDateEndTime,

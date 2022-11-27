@@ -16,7 +16,7 @@ class FirestoreService {
   }
 
   final meetingCollection = FirebaseFirestore.instance.collection('Meetings');
-  final employeeCollection = FirebaseFirestore.instance.collection('Employee');
+  final employeeCollection = FirebaseFirestore.instance.collection('Employees');
   final guestCollection = FirebaseFirestore.instance.collection('Guests');
 
   final StreamController<List<Meeting>> _meetingsController = StreamController<List<Meeting>>();
