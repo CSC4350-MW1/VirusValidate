@@ -329,16 +329,8 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
               'guestList': guestIDs
             }
           );
-          // Create or update all guest accounts
-          for (var guestID in guestIDs.keys) {
-            // TODO Add meeting to list of meetings for guests
-
-            _fs.meetingCollection.doc(guestIDs[guestID]).set(
-              {
-                "email": guestID,
-              }
-            );
-          }
+          
+          
           return true;
         }
       } catch(e) {
