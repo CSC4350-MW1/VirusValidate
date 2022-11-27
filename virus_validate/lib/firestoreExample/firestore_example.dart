@@ -90,7 +90,7 @@ class FirestoreService {
   Map<String, Profile> _getProfileFromSnapshot(QuerySnapshot<Map<String, dynamic>> snapshot) {
     for (var doc in snapshot.docs) {
       Profile profile = Profile.fromJson(doc.id, doc.data());
-      profileMap[profile.id] = profile;
+      profileMap[profile.email] = profile;
     }
     return profileMap;
   }
@@ -101,7 +101,7 @@ class FirestoreService {
       var data = doc.data();
       Post post = Post.fromJson(data['id'], doc.data());
       posts.add(post);
-      postMap[post.id] = post;
+      postMap[post.email] = post;
     }
     return posts;
   }
@@ -110,7 +110,7 @@ class FirestoreService {
     List<Conversation> conversations = [];
     for (var doc in snapshot.docs) {
       Conversation convo = Conversation.fromJson(doc.id, doc.data());
-      conversationsMap[convo.id] = convo;
+      conversationsMap[convo.email] = convo;
       conversations.add(convo);
     }
     return conversations;
@@ -134,7 +134,7 @@ class FirestoreService {
     for (var doc in snapshot.docs) {
       Message message = Message.fromJson(doc.id, doc.data());
       messages.add(message);
-      _messages[message.id] = message;
+      _messages[message.email] = message;
     }
     messages.sort(((a, b) => a.created.compareTo(b.created)));
     return messages;  
@@ -163,7 +163,7 @@ class FirestoreService {
   Future<Conversation?> addConversation(List<String> users) async {
     users.add(_auth.currentUser!.uid);
     var data = Conversation(
-      id: "id", 
+      email: "id", 
       users: users, 
       created: Timestamp.now(), 
       ratings: <String, dynamic>{});
@@ -173,7 +173,7 @@ class FirestoreService {
         userConversationsCollection.doc(user).set({result.id: 1}, SetOptions(merge: true));
       }
       return Conversation(
-        id: result.id, 
+        email: result.id, 
         users: users, 
         created: data.created, 
         ratings: data.ratings);
@@ -184,16 +184,16 @@ class FirestoreService {
 
   Future<bool> addMessage(String content, Conversation convo) async {
     var data = Message(
-      id: "", 
+      email: "", 
       content: content, 
       type: 0, 
       created: Timestamp.now(), 
       fromID: getUserID(), 
-      convoID: convo.id);
+      convoID: convo.email);
     try {
       var result = await messagesCollection.add(data.toJSON());
-      await conversationCollection.doc(convo.id).update(Conversation(
-              id: convo.id, 
+      await conversationCollection.doc(convo.email).update(Conversation(
+              email: convo.email, 
               users: convo.users, 
               created: convo.created,
               lastMessage: result.id,
@@ -215,16 +215,16 @@ class FirestoreService {
     }
 
     try {
-      await conversationCollection.doc(convo.id).update({
+      await conversationCollection.doc(convo.email).update({
         "ratings" : ratings
       });
       double avgConvoRating = avgRating(ratings);
       for (var user in convo.users) {
         Map<String, dynamic> usrRatings = profileMap[user]!.ratings;
-        if (usrRatings.containsKey(convo.id)) {
-          usrRatings.update(convo.id, (value) => avgConvoRating);
+        if (usrRatings.containsKey(convo.email)) {
+          usrRatings.update(convo.email, (value) => avgConvoRating);
         } else {
-          usrRatings.putIfAbsent(convo.id, () => avgConvoRating);
+          usrRatings.putIfAbsent(convo.email, () => avgConvoRating);
         }
         await profileCollection.doc(user).update({
           "ratings" : usrRatings
@@ -245,7 +245,7 @@ class FirestoreService {
       ratings.putIfAbsent(uid, () => rating);
     }
 
-    await profileCollection.doc(user.id).update({
+    await profileCollection.doc(user.email).update({
       "ratings": ratings
     }).then((value) {
       return true;
