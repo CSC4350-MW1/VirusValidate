@@ -106,9 +106,10 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     myHeaderText("Meeting Date"), 
-                    const SizedBox(height: 10.0,),                   
+                    const SizedBox(height: 3.0,),                   
                     Row(
                       children: [
                         Expanded(
@@ -129,6 +130,7 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     myHeaderText("Start Time"),
                     const SizedBox(height: 3.0,),
@@ -152,6 +154,7 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     myHeaderText("End Time"),
                     const SizedBox(height: 3.0,),
@@ -184,10 +187,10 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
                   children: const [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20),
+                        padding: EdgeInsets.only(left: 10),
                         child: Text(
                           "Guests",
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: largeText,
                             fontWeight: FontWeight.bold
@@ -195,7 +198,10 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
                         ),
                       )
                     ),
-                    Icon(Icons.add)
+                    Padding(
+                      padding: EdgeInsets.only(right: 10.0),
+                      child: Icon(Icons.add),
+                    ),
                   ],
                 ),
               ),
