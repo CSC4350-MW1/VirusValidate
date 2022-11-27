@@ -25,7 +25,7 @@ class MeetingCard extends StatelessWidget {
             const SizedBox(height: 3.0,),
             Row(
               children: [
-                myStandardText('Start Time:'),
+                myStandardText('Start Time: '),
                 myStandardText(myTimeFormat.format(meeting.startTime)),
                 const SizedBox(width: 10.0,),
                 myStandardText('End Time: '),
