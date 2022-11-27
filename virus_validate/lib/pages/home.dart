@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virus_validate/firestoreExample/firestore_example.dart';
+import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/forms/new_meeting_form.dart';
 import 'package:virus_validate/helpers/meeting_card.dart';
 import 'package:virus_validate/models/meeting_model.dart';
+import 'package:virus_validate/pages/employee_meeting_details.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
 import 'package:virus_validate/pages/symptom_questionnaire.dart';
 import 'package:virus_validate/widgets/loading.dart';
@@ -18,13 +22,25 @@ class EmployeeHomePage extends StatefulWidget {
 
 class _EmployeeHomeState extends State<EmployeeHomePage> {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final Stream<QuerySnapshot> _meetingStream = FirebaseFirestore.instance.collection('Meetings').snapshots();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirestoreService _fs = FirestoreService();
+  late Stream<QuerySnapshot> _meetingStream;
+  @override
+  void initState() {
+    super.initState();
+    String uid = _auth.currentUser!.uid;
+    log(uid);
+    _meetingStream = FirebaseFirestore.instance
+      .collection('Meetings')
+      .where("employee", isEqualTo: uid)
+      .snapshots();
+  }
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Meetings"),
+        title: const Text("Meeting Details"),
         // Logout Button
         leading: Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -89,7 +105,15 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
                   subtitle: Text(data['description']),
                 ); */
                 Meeting meeting = Meeting.fromJson(document.id, data);
-                return MeetingCard(meeting: meeting);
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => EmployeeMeetingPage(meeting: meeting))
+                    );
+                  },
+                  child: MeetingCard(meeting: meeting)
+                );
               })
               .toList()
               .cast(),
