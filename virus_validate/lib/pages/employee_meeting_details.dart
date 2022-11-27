@@ -88,7 +88,6 @@ class _EmployeeMeetingPageState extends State<EmployeeMeetingPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
                   controller: _meetingTitle,
-                  initialValue: widget.meeting.title,
                   minLines: 1,
                   maxLines: 2,
                   decoration: inputStyling('Meeting Title'),
@@ -105,7 +104,6 @@ class _EmployeeMeetingPageState extends State<EmployeeMeetingPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
                   controller: _meetingDescription,
-                  initialValue: widget.meeting.description,
                   minLines: 1,
                   maxLines: 2,
                   decoration: inputStyling('Meeting Description'),
