@@ -12,20 +12,24 @@ class MeetingCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(meeting.title),
+            myHeaderText(meeting.title),
+            const SizedBox(height: 3.0,),
             Row(
               children: [
-                const Text('Date:'),
-                Text(myDateFormat.format(meeting.startTime))
+                myStandardText('Date: '),
+                myStandardText(myDateFormat.format(meeting.startTime))
               ],
             ),
+            const SizedBox(height: 3.0,),
             Row(
               children: [
-                const Text('Start Time:'),
-                Text(myTimeFormat.format(meeting.startTime)),
-                const Text('End Time'),
-                Text(myTimeFormat.format(meeting.endTime))
+                myStandardText('Start Time:'),
+                myStandardText(myTimeFormat.format(meeting.startTime)),
+                const SizedBox(width: 10.0,),
+                myStandardText('End Time: '),
+                myStandardText(myTimeFormat.format(meeting.endTime))
               ],
             ),
           ],
