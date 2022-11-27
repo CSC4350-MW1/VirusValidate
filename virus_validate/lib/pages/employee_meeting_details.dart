@@ -31,6 +31,18 @@ class _NewEmployeeMeetingPageState extends State<NewEmployeeMeetingPage> {
   final TextEditingController _meetingDescription = TextEditingController();
 
   List<TextEditingController> guestEmails = <TextEditingController>[];
+
+  @override
+  void initState() {
+    super.initState();
+    meetingDateStartTime = widget.meeting.startTime;
+    meetingDateEndTime = widget.meeting.endTime;
+    _meetingTitle.text = widget.meeting.title;
+    _meetingDescription.text = widget.meeting.description;
+    for (var email in widget.meeting.guestList.keys) {
+      guestEmails.add(TextEditingController(text: email));
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
