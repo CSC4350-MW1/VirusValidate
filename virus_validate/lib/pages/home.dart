@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virus_validate/firestoreExample/firestore_example.dart';
 import 'package:virus_validate/forms/new_meeting_form.dart';
+import 'package:virus_validate/helpers/meeting_card.dart';
+import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
 import 'package:virus_validate/pages/symptom_questionnaire.dart';
 import 'package:virus_validate/widgets/loading.dart';
@@ -82,10 +84,12 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
               .map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                return ListTile(
+                /* return ListTile(
                   title: Text(data['title']),
                   subtitle: Text(data['description']),
-                );
+                ); */
+                Meeting meeting = Meeting.fromJson(document.id, data);
+                return MeetingCard(meeting: meeting);
               })
               .toList()
               .cast(),
