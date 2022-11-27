@@ -302,14 +302,14 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
             email: guestEmail.text, password: '1234567890');
 
             // Add email and uid to guestIDs map
-            guestIDs[guestEmail.text] = registrationResponse.user!.uid;
+            /* guestIDs[guestEmail.text] = registrationResponse.user!.uid;
             _fs.guestCollection.doc(guestIDs[guestEmail.text]).set(
               {
                 "email": guestEmail.text,
                 "isSick": false,
                 "completedHealthScreen": false
               }
-            );
+            ); */
             //guestIDs[guestEmail.text] = guestEmail.text;
           } catch(e) {
             // Email is already in use

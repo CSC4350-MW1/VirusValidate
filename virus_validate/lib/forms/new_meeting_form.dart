@@ -280,7 +280,7 @@ class _NewMeetingFormState extends State<NewMeetingForm> {
             // Email is already in use
             if (e is PlatformException) {
               // TODO Search Guest Documents with guest email to retrieve uid
-
+              
             }
           }
           // Create Meeting and store document ID to update user lists

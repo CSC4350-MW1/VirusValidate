@@ -1,6 +1,8 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:virus_validate/firestoreExample/firestore_example.dart';
 import 'package:virus_validate/forms/new_meeting_form.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
 import 'package:virus_validate/pages/symptom_questionnaire.dart';
@@ -13,7 +15,8 @@ class EmployeeHomePage extends StatefulWidget {
 }
 
 class _EmployeeHomeState extends State<EmployeeHomePage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final Stream<QuerySnapshot> _meetingStream = FirebaseFirestore.instance.collection('Meetings').snapshots();
   
   @override
   Widget build(BuildContext context) {
