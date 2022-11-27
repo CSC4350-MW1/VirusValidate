@@ -1,4 +1,4 @@
-import 'dart:async';
+/* import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -264,4 +264,4 @@ class FirestoreService {
     }
     return result / ratings.length;
   }
-}
+} */
