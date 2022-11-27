@@ -21,10 +21,10 @@ class EmployeeHomePage extends StatefulWidget {
 }
 
 class _EmployeeHomeState extends State<EmployeeHomePage> {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirestoreService _fs = FirestoreService();
+
   late Stream<QuerySnapshot> _meetingStream;
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +46,7 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
           padding: const EdgeInsets.only(left: 20.0),
           child: GestureDetector(
             onTap: () {
-              
+              _auth.signOut();
             },
             child: const Icon(Icons.logout_sharp),
           ),
@@ -100,10 +100,6 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
               .map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                /* return ListTile(
-                  title: Text(data['title']),
-                  subtitle: Text(data['description']),
-                ); */
                 Meeting meeting = Meeting.fromJson(document.id, data);
                 return GestureDetector(
                   onTap: () {
