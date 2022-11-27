@@ -7,15 +7,15 @@ import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/style/style.dart';
 
-class NewEmployeeMeetingPage extends StatefulWidget {
-  const NewEmployeeMeetingPage({super.key, required this.meeting});
+class EmployeeMeetingPage extends StatefulWidget {
+  const EmployeeMeetingPage({super.key, required this.meeting});
   final Meeting meeting;
 
   @override
-  State<StatefulWidget> createState() => _NewEmployeeMeetingPageState();
+  State<StatefulWidget> createState() => _EmployeeMeetingPageState();
 }
 
-class _NewEmployeeMeetingPageState extends State<NewEmployeeMeetingPage> {
+class _EmployeeMeetingPageState extends State<EmployeeMeetingPage> {
   final FirestoreService _fs = FirestoreService();
 
   bool loading = false;
