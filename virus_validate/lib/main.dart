@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/pages/authentication.dart';
+import 'package:virus_validate/pages/home.dart';
 import 'package:virus_validate/widgets/loading.dart';
 
 Future<void> main() async {
@@ -12,6 +15,7 @@ Future<void> main() async {
 class VVApp extends StatelessWidget {
   VVApp({super.key});
   final Future<FirebaseApp> _initializer = Firebase.initializeApp();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // This widget is the root of your application.
   @override
@@ -25,6 +29,9 @@ class VVApp extends StatelessWidget {
         future: _initializer,
         builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
+            if (_auth.currentUser != null) {
+              return const EmployeeHomePage();
+            }
             return const Authentication();
           } else {
             return const Loading();

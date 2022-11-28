@@ -22,6 +22,7 @@ class EmployeeHomePage extends StatefulWidget {
 
 class _EmployeeHomeState extends State<EmployeeHomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirestoreService _fs = FirestoreService();
 
   late Stream<QuerySnapshot> _meetingStream;
 
@@ -40,7 +41,7 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Meeting Details"),
+        title: const Text("Meetings"),
         // Logout Button
         leading: Padding(
           padding: const EdgeInsets.only(left: 20.0),
