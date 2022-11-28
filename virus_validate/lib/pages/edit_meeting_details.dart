@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +9,15 @@ import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/style/style.dart';
 
-class EmployeeMeetingPage extends StatefulWidget {
-  const EmployeeMeetingPage({super.key, required this.meeting});
+class EditMeetingPage extends StatefulWidget {
+  const EditMeetingPage({super.key, required this.meeting});
   final Meeting meeting;
 
   @override
-  State<StatefulWidget> createState() => _EmployeeMeetingPageState();
+  State<StatefulWidget> createState() => _EditMeetingPageState();
 }
 
-class _EmployeeMeetingPageState extends State<EmployeeMeetingPage> {
+class _EditMeetingPageState extends State<EditMeetingPage> {
   final FirestoreService _fs = FirestoreService();
 
   bool loading = false;
@@ -48,7 +50,7 @@ class _EmployeeMeetingPageState extends State<EmployeeMeetingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("New Meeting"),
+        title: const Text("Edit Meeting"),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -316,29 +318,19 @@ class _EmployeeMeetingPageState extends State<EmployeeMeetingPage> {
         Map<String, String> guestIDs = {};
         
         for (var guestEmail in guestEmails) {
-          try {
-            UserCredential registrationResponse = await _fs.auth.createUserWithEmailAndPassword(
-            email: guestEmail.text, password: '1234567890');
-
-            // Add email and uid to guestIDs map
-            /* guestIDs[guestEmail.text] = registrationResponse.user!.uid;
-            _fs.guestCollection.doc(guestIDs[guestEmail.text]).set(
-              {
-                "email": guestEmail.text,
-                "isSick": false,
-                "completedHealthScreen": false
-              }
-            ); */
-            //guestIDs[guestEmail.text] = guestEmail.text;
-          } catch(e) {
-            // Email is already in use
-            if (e is PlatformException) {
-              // TODO Search Guest Documents with guest email to retrieve uid
-
-            }
+          // Find Guest ID by searching the db map
+          String? id = FirestoreService.findGuestIDByEmail(guestEmail.text);
+          if (id != null) {
+            log(id);
+            // Add id to map with email as the key
+            guestIDs[guestEmail.text] = id;
+          } else {
+            log("ID not found");
           }
+          }
+
           // Create Meeting and store document ID to update user lists
-          DocumentReference meetingDoc = await _fs.meetingCollection.add(
+          await _fs.meetingCollection.add(
             {
               'title': _meetingTitle.text,
               'description': _meetingDescription.text,
@@ -348,10 +340,8 @@ class _EmployeeMeetingPageState extends State<EmployeeMeetingPage> {
               'guestList': guestIDs
             }
           );
-          
-          
           return true;
-        }
+        
       } catch(e) {
         snackBar(context, e.toString());
         return false;

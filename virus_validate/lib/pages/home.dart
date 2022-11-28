@@ -106,7 +106,7 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
                   onTap: () {
                     Navigator.push(
                     context, 
-                    MaterialPageRoute(builder: (context) => EmployeeMeetingPage(meeting: meeting))
+                    MaterialPageRoute(builder: (context) => EditMeetingPage(meeting: meeting))
                     );
                   },
                   child: MeetingCard(meeting: meeting)
