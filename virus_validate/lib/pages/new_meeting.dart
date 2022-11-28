@@ -75,34 +75,48 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
               const SizedBox(height: 10.0,),
               Container(
                 padding: const EdgeInsets.all(10.0),
-                child: TextFormField(
-                  controller: _meetingTitle,
-                  minLines: 1,
-                  maxLines: 2,
-                  decoration: inputStyling('Meeting Title'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Title cannot be empty";
-                    }
-                    return null;
-                  },
-                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    myHeaderText("Meeting Title"),
+                    const SizedBox(height: 3.0,),
+                    TextFormField(
+                      controller: _meetingTitle,
+                      minLines: 1,
+                      maxLines: 2,
+                      decoration: inputStyling('Meeting Title'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Title cannot be empty";
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                )
               ),
               const Divider(thickness: 3.0,),
               Container(
                 padding: const EdgeInsets.all(10.0),
-                child: TextFormField(
-                  controller: _meetingDescription,
-                  minLines: 1,
-                  maxLines: 2,
-                  decoration: inputStyling('Meeting Description'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Meeting Description cannot be empty";
-                    }
-                    return null;
-                  },
-                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    myHeaderText("Meeting Description"),
+                    const SizedBox(height: 3.0,),
+                    TextFormField(
+                      controller: _meetingDescription,
+                      minLines: 1,
+                      maxLines: 2,
+                      decoration: inputStyling('Meeting Description'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Meeting Description cannot be empty";
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                )
               ),
               const Divider(thickness: 3.0,),
               Container(
