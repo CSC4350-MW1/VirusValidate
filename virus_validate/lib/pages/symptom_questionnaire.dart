@@ -44,7 +44,8 @@ class _SymptomQuestionnaireState extends State<SymptomQuestionnaire> {
             itemCount: symptoms.length,
             itemBuilder: (context, index) {
               return SymptomCard(text: symptoms[index]);
-            }
+            },
+            physics: const NeverScrollableScrollPhysics(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
