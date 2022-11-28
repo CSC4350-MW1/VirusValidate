@@ -21,7 +21,7 @@ class FirestoreService {
   String getUserID() {
     return auth.currentUser!.uid;
   }
-  
+
   final meetingCollection = FirebaseFirestore.instance.collection('Meetings');
   final employeeCollection = FirebaseFirestore.instance.collection('Employees');
   final guestCollection = FirebaseFirestore.instance.collection('Guests');
@@ -35,6 +35,15 @@ class FirestoreService {
     guestService();
     employeeService();
     meetingService();
+  }
+
+  static String? findGuestIDByEmail(String email) {
+    for (var id in guestMap.keys) {
+      if (guestMap[id]!.email == email) {
+        return id;
+      }
+    }
+    return null; 
   }
 
   guestService() {
