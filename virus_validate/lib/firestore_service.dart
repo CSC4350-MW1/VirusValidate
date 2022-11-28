@@ -63,6 +63,7 @@ class FirestoreService {
         }
       }
     });
+    log("Guest Map: ${guestMap.toString()}");
   }
 
   employeeService() {

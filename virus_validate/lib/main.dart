@@ -9,6 +9,7 @@ import 'package:virus_validate/widgets/loading.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirestoreService();
   runApp(VVApp());
 }
 
