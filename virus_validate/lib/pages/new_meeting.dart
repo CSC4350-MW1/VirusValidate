@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -303,29 +305,19 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
         Map<String, String> guestIDs = {};
         
         for (var guestEmail in guestEmails) {
-          try {
-            UserCredential registrationResponse = await _fs.auth.createUserWithEmailAndPassword(
-            email: guestEmail.text, password: '1234567890');
-
-            // Add email and uid to guestIDs map
-            /* guestIDs[guestEmail.text] = registrationResponse.user!.uid;
-            _fs.guestCollection.doc(guestIDs[guestEmail.text]).set(
-              {
-                "email": guestEmail.text,
-                "isSick": false,
-                "completedHealthScreen": false
-              }
-            ); */
-            //guestIDs[guestEmail.text] = guestEmail.text;
-          } catch(e) {
-            // Email is already in use
-            if (e is PlatformException) {
-              // TODO Search Guest Documents with guest email to retrieve uid
-
-            }
+          // Find Guest ID by searching the db map
+          String? id = FirestoreService.findGuestIDByEmail(guestEmail.text);
+          if (id != null) {
+            log(id);
+            // Add id to map with email as the key
+            guestIDs[guestEmail.text] = id;
+          } else {
+            log("ID not found");
           }
+          }
+
           // Create Meeting and store document ID to update user lists
-          DocumentReference meetingDoc = await _fs.meetingCollection.add(
+          await _fs.meetingCollection.add(
             {
               'title': _meetingTitle.text,
               'description': _meetingDescription.text,
@@ -335,10 +327,8 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
               'guestList': guestIDs
             }
           );
-          
-          
           return true;
-        }
+        
       } catch(e) {
         snackBar(context, e.toString());
         return false;
