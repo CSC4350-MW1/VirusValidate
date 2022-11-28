@@ -8,7 +8,7 @@ import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/forms/new_meeting_form.dart';
 import 'package:virus_validate/helpers/meeting_card.dart';
 import 'package:virus_validate/models/meeting_model.dart';
-import 'package:virus_validate/pages/employee_meeting_details.dart';
+import 'package:virus_validate/pages/edit_meeting_details.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
 import 'package:virus_validate/pages/symptom_questionnaire.dart';
 import 'package:virus_validate/widgets/loading.dart';
