@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:virus_validate/helpers/meeting_card.dart';
 import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/pages/edit_meeting_details.dart';
+import 'package:virus_validate/pages/meeting_details.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
 import 'package:virus_validate/pages/symptom_questionnaire.dart';
 import 'package:virus_validate/widgets/loading.dart';
@@ -102,7 +103,7 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
                   onTap: () {
                     Navigator.push(
                     context, 
-                    MaterialPageRoute(builder: (context) => EditMeetingPage(meeting: meeting))
+                    MaterialPageRoute(builder: (context) => EmployeeMeetingDetails(meeting: meeting))
                     );
                   },
                   child: MeetingCard(meeting: meeting)

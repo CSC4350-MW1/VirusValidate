@@ -18,6 +18,7 @@ class _EmployeeMeetingDetailsState extends State<EmployeeMeetingDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Meeting Details'),
         actions: [
           GestureDetector(
             onTap: () {
