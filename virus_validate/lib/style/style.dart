@@ -22,18 +22,24 @@ InputDecoration inputStyling(String labelText, {hintText}) =>
   InputDecoration(labelText: labelText, hintText: hintText, border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))));
 
 myHeaderText(String text) {
-  return Text(text, style: const TextStyle(
+  return Padding(
+    padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+    child: Text(text, style: const TextStyle(
       fontSize: largeText,
-      fontWeight: FontWeight.bold
+      fontWeight: FontWeight.bold 
+      ),
     ),
   );
 }
 
 myStandardText(String text) {
-  return Text(
-    text, 
-    style: const TextStyle(
-      fontSize: standardText,
+  return Padding(
+    padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+    child: Text(
+      text, 
+      style: const TextStyle(
+        fontSize: standardText,
+      ),
     ),
   );
 }
