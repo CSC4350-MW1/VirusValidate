@@ -41,8 +41,8 @@ class _EditMeetingPageState extends State<EditMeetingPage> {
     meetingDateEndTime = widget.meeting.endTime;
     _meetingTitle.text = widget.meeting.title;
     _meetingDescription.text = widget.meeting.description;
-    for (var email in widget.meeting.guestList.keys) {
-      guestEmails.add(TextEditingController(text: email));
+    for (var id in widget.meeting.guestList) {
+      guestEmails.add(TextEditingController(text: FirestoreService.guestMap[id]!.email));
     }
   }
   

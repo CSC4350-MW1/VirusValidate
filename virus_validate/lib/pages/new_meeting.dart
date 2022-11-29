@@ -316,7 +316,7 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
   Future<bool> createMeeting() async {
     if (_formKey.currentState!.validate()) {
       try {
-        Map<String, String> guestIDs = {};
+        List<String> guestIDs = [];
         
         for (var guestEmail in guestEmails) {
           // Find Guest ID by searching the db map
@@ -324,7 +324,7 @@ class _NewMeetingPageState extends State<NewMeetingPage> {
           if (id != null) {
             log(id);
             // Add id to map with email as the key
-            guestIDs[guestEmail.text] = id;
+            guestIDs.add(id);
           } else {
             log("ID not found");
           }

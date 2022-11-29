@@ -7,7 +7,7 @@ class Meeting {
   final String employee;
   final DateTime startTime;
   final DateTime endTime; 
-  final Map<String, dynamic> guestList;
+  final List<dynamic> guestList;
 
   Meeting({
     required this.id,

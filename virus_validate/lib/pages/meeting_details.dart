@@ -58,7 +58,7 @@ class _EmployeeMeetingDetailsState extends State<EmployeeMeetingDetails> {
                 child: ListView.builder(
                   itemCount: widget.meeting.guestList.length,
                   itemBuilder: ( (context, index) {
-                    String id = widget.meeting.guestList.values.elementAt(index);
+                    String id = widget.meeting.guestList.elementAt(index);
                     Guest? guest = FirestoreService.guestMap[id];
                     if (guest != null) {
                       return GuestDetailCard(guest: guest);
