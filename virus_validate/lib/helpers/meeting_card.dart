@@ -29,9 +29,12 @@ class MeetingCard extends StatelessWidget {
                 myStandardText(myTimeFormat.format(meeting.startTime)),
                 const SizedBox(width: 10.0,),
                 myStandardText('End Time: '),
-                myStandardText(myTimeFormat.format(meeting.endTime))
+                myStandardText(myTimeFormat.format(meeting.endTime)),
+                
               ],
             ),
+            const SizedBox(height: 3.0,),
+            myStandardText('External Guests: ${meeting.guestList.length}')
           ],
         ),
       )
