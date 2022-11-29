@@ -52,6 +52,7 @@ class _EmployeeMeetingDetailsState extends State<EmployeeMeetingDetails> {
               myHeaderText('End Time:'),
               myStandardText(myTimeFormat.format(widget.meeting.endTime)),
               const Divider(height: 3.0,),
+              myHeaderText('Guests:'),
               Expanded(
                 child: ListView.builder(
                   itemCount: widget.meeting.guestList.length,
