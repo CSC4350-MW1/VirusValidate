@@ -5,6 +5,7 @@ class Guest {
   final bool completedHealthScreen;
   final bool unlockToken;
   final bool unlockedDoor;
+  final List<dynamic> meetings;
 
   Guest({
     required this.id,
@@ -12,7 +13,8 @@ class Guest {
     required this.isSick,
     required this.completedHealthScreen,
     required this.unlockToken,
-    required this.unlockedDoor
+    required this.unlockedDoor,
+    required this.meetings
   });
 
   factory Guest.fromJson(String id, Map<String, dynamic> data) {
@@ -22,7 +24,9 @@ class Guest {
       isSick: data["isSick"],
       completedHealthScreen: data["completedHealthScreen"],
       unlockToken: data["unlockToken"],
-      unlockedDoor: data["unlockedDoor"]
+      unlockedDoor: data["unlockedDoor"],
+      meetings: (data["meetings"]) != null ? data["meetings"] : []
+
     );
   }
 
@@ -32,7 +36,8 @@ class Guest {
       "isSick": isSick,
       "completedHealthScreen": completedHealthScreen,
       "unlockToken": unlockToken,
-      "unlockedDoor": unlockedDoor
+      "unlockedDoor": unlockedDoor, 
+      "meetings": meetings
     };
   }
 }

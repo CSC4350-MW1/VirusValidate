@@ -142,7 +142,7 @@ class _GuestHomePageState extends State<GuestHomePage> {
     log(uid);
     _meetingStream = FirebaseFirestore.instance
       .collection('Meetings')
-      .where("employee", isEqualTo: uid)
+      .where("guestList", isEqualTo: uid)
       .snapshots();
   }
   
