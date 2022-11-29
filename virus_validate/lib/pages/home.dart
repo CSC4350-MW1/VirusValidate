@@ -38,7 +38,7 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Meetings"),
+        title: const Text("Employee's Meetings"),
         // Logout Button
         leading: Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -147,7 +147,7 @@ class _GuestHomePageState extends State<GuestHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Meetings"),
+        title: const Text("Guest's Meetings"),
         // Logout Button
         leading: Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -163,7 +163,7 @@ class _GuestHomePageState extends State<GuestHomePage> {
             onTap: () {
               Navigator.push(
                 context, 
-                MaterialPageRoute(builder: (context) => const GuestHomePage())
+                MaterialPageRoute(builder: (context) => const EmployeeHomePage())
               );
             },
             child: const Icon(Icons.person),
@@ -212,7 +212,7 @@ class _GuestHomePageState extends State<GuestHomePage> {
                   onTap: () {
                     Navigator.push(
                     context, 
-                    MaterialPageRoute(builder: (context) => EditMeetingPage(meeting: meeting))
+                    MaterialPageRoute(builder: (context) => GuestMeetingDetails(meeting: meeting))
                     );
                   },
                   child: MeetingCard(meeting: meeting)

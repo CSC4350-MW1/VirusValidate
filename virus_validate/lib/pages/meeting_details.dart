@@ -75,4 +75,48 @@ class _EmployeeMeetingDetailsState extends State<EmployeeMeetingDetails> {
       )
     );
   }
+} 
+
+class GuestMeetingDetails extends StatefulWidget {
+  const GuestMeetingDetails({super.key, required this.meeting});
+  final Meeting meeting;
+  
+  @override
+  State<StatefulWidget> createState() => _GuestMeetingDetailsState();
+
 }
+
+class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.meeting.title),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              myHeaderText('Meeting Description: '),
+              myStandardText(widget.meeting.description),
+              const Divider(height: 3.0,),
+              myHeaderText('Date:'),
+              myStandardText(myDateFormat.format(widget.meeting.startTime)),
+              const Divider(height: 3.0,),
+              myHeaderText('Start Time:'),
+              myStandardText(myTimeFormat.format(widget.meeting.startTime)),
+              const Divider(height: 3.0,),
+              myHeaderText('End Time:'),
+              myStandardText(myTimeFormat.format(widget.meeting.endTime)),
+              const Divider(height: 3.0,),
+              myHeaderText('Guests: ${widget.meeting.guestList.length}'),
+            ],
+          ),
+        )
+      )
+    );
+  }
+} 
