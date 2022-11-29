@@ -121,7 +121,7 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                     padding: const EdgeInsets.all(3.0),
                     child: ElevatedButton(
                       onPressed: (() {
-                        
+                        // Code to set door and guest variable in database
                       }), 
                       child: const Text("Unlock Door")
                     ),
@@ -130,7 +130,7 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                     padding: const EdgeInsets.all(3.0),
                     child: ElevatedButton(
                       onPressed: (() {
-                        
+                        // Code to set variable in database
                       }), 
                       child: const Text("Health Questionnaire")
                     ),

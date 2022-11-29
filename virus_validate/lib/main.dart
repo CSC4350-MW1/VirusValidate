@@ -30,9 +30,9 @@ class VVApp extends StatelessWidget {
         future: _initializer,
         builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            if (_auth.currentUser != null) {
+            /* if (_auth.currentUser != null) {
               return const EmployeeHomePage();
-            }
+            } */
             return const Authentication();
           } else {
             return const Loading();

@@ -1,7 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:virus_validate/firestore_service.dart';
+import 'package:virus_validate/pages/authentication.dart';
 import 'package:virus_validate/pages/home.dart';
 import 'package:virus_validate/style/style.dart';
 
@@ -87,16 +91,27 @@ class _LoginFormState extends State<LoginForm> {
       UserCredential loginResponse = await _auth.signInWithEmailAndPassword(
       email: _email.text, password: _password.text);
 
+      Widget nextPage = const Authentication();
+      log("Employee Map: ${FirestoreService.employeeMap.toString()}");
+      log("Guest Map: ${FirestoreService.guestMap.toString()}");
+      
+      if (loginResponse.user != null) {
+        if (FirestoreService.employeeMap.containsKey(loginResponse.user!.uid)) {
+          nextPage = const EmployeeHomePage();
+        } else if (FirestoreService.guestMap.containsKey(loginResponse.user!.uid)) {
+          nextPage = const GuestHomePage();
+        }
+      }
       if(loginResponse.user!.emailVerified) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => const EmployeeHomePage()));
+          MaterialPageRoute(builder: (BuildContext context) => nextPage));
       } else {
         snackBar(context, "User logged in but email is not verified");
         loginResponse.user!.sendEmailVerification();
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => const EmployeeHomePage()));
+          MaterialPageRoute(builder: (BuildContext context) => nextPage));
       }
 
       setState(() {
