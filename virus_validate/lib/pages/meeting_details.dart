@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:virus_validate/firestore_service.dart';
+import 'package:virus_validate/helpers/guest_detail_card.dart';
 import 'package:virus_validate/models/guest_model.dart';
 import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/pages/edit_meeting_details.dart';
@@ -60,10 +61,10 @@ class _EmployeeMeetingDetailsState extends State<EmployeeMeetingDetails> {
                     String id = widget.meeting.guestList.values.elementAt(index);
                     Guest? guest = FirestoreService.guestMap[id];
                     if (guest != null) {
-                      return myStandardText(guest.email);
+                      return GuestDetailCard(guest: guest);
                     }
                     else {
-                      return myStandardText("Guest not found");
+                      return myStandardText("Guest email not found");
                     }
                   })
                 ),
