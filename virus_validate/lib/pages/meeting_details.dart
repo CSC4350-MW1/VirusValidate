@@ -113,6 +113,30 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
               myStandardText(myTimeFormat.format(widget.meeting.endTime)),
               const Divider(height: 3.0,),
               myHeaderText('Guests: ${widget.meeting.guestList.length}'),
+              const SizedBox(height: 10.0,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: ElevatedButton(
+                      onPressed: (() {
+                        
+                      }), 
+                      child: const Text("Unlock Door")
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: ElevatedButton(
+                      onPressed: (() {
+                        
+                      }), 
+                      child: const Text("Health Questionnaire")
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         )
