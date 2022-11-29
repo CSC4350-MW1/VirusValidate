@@ -41,13 +41,22 @@ class GuestDetailCard extends StatelessWidget {
                     ((guest.isSick) ? Colors.red : Colors.green) 
                     : Colors.black,
                 ),
-                myStandardText('Has Symptoms: '),
+                myStandardText('Has Symptoms? : '),
                 myStandardText((guest.completedHealthScreen) ?
-                  ((guest.isSick) ? "Has symptoms" : "No symptoms")
+                  ((guest.isSick) ? "Yes" : "No")
                   : "Health Screen not completed"
                 )
               ],
             ),
+            Row(
+              children: [
+                Icon(Icons.key,
+                  color: (guest.unlockedDoor) ? Colors.green : Colors.red,
+                ),
+                myStandardText("Unlocked Door? : "),
+                myStandardText((guest.unlockedDoor) ? "Yes" : "No")
+              ],
+            )
           ],
         ),
       ),
