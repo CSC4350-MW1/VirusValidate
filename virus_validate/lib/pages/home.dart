@@ -28,6 +28,7 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
   void initState() {
     super.initState();
     String uid = _auth.currentUser!.uid;
+    DateTime now = DateTime.now();
     log(uid);
     _meetingStream = FirebaseFirestore.instance
       .collection('Meetings')
@@ -102,6 +103,11 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
                 Meeting meeting = Meeting.fromJson(document.id, data);
+                DateTime now = DateTime.now();
+                //log("Current time: ${now.toString()}  Meeting Time: ${meeting.startTime.toString()}");
+                if (meeting.startTime.compareTo(now) < 0) {
+                  return Container();
+                }
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -139,10 +145,9 @@ class _GuestHomePageState extends State<GuestHomePage> {
   void initState() {
     super.initState();
     String uid = _auth.currentUser!.uid;
-    log(uid);
     _meetingStream = FirebaseFirestore.instance
       .collection('Meetings')
-      .where("guestList", isEqualTo: uid)
+      .where("guestList", arrayContains: uid)
       .snapshots();
   }
   
@@ -213,6 +218,11 @@ class _GuestHomePageState extends State<GuestHomePage> {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
                 Meeting meeting = Meeting.fromJson(document.id, data);
+                DateTime now = DateTime.now();
+                //log("Current time: ${now.toString()}  Meeting Time: ${meeting.startTime.toString()}");
+                if (meeting.startTime.compareTo(now) < 0) {
+                  return Container();
+                }
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
