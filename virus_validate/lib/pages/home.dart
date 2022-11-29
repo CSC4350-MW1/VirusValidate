@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virus_validate/helpers/meeting_card.dart';
 import 'package:virus_validate/models/meeting_model.dart';
+import 'package:virus_validate/pages/authentication.dart';
 import 'package:virus_validate/pages/edit_meeting_details.dart';
 import 'package:virus_validate/pages/meeting_details.dart';
 import 'package:virus_validate/pages/new_meeting.dart';
@@ -45,6 +46,8 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
           child: GestureDetector(
             onTap: () {
               _auth.signOut();
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                const Authentication()), (Route<dynamic> route) => false);
             },
             child: const Icon(Icons.logout_sharp),
           ),
@@ -154,6 +157,8 @@ class _GuestHomePageState extends State<GuestHomePage> {
           child: GestureDetector(
             onTap: () {
               _auth.signOut();
+               Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                const Authentication()), (Route<dynamic> route) => false);
             },
             child: const Icon(Icons.logout_sharp),
           ),

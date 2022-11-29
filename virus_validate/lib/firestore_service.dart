@@ -18,8 +18,12 @@ class FirestoreService {
   static Map<String, Guest> guestMap = {};
   static Map<String, Employee> employeeMap = {};
 
-  String getUserID() {
-    return auth.currentUser!.uid;
+  String? getUserID() {
+    if (auth.currentUser != null) {
+      return auth.currentUser!.uid;
+    } else {
+      return null;
+    }
   }
 
   final meetingCollection = FirebaseFirestore.instance.collection('Meetings');
