@@ -137,7 +137,7 @@ class _GuestHomePageState extends State<GuestHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Guest's Meetings"),
+        title: const Text("Guest Meetings"),
         // Logout Button
         leading: Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -150,20 +150,6 @@ class _GuestHomePageState extends State<GuestHomePage> {
             child: const Icon(Icons.logout_sharp),
           ),
         ),
-        actions: [
-          // Create New Meeting
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const NewMeetingPage()));
-              },
-              child: const Icon(Icons.note_add_outlined),
-            ),
-          ),
-        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _meetingStream,
