@@ -87,7 +87,13 @@ class GuestMeetingDetails extends StatefulWidget {
 }
 
 class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
-  
+  bool _accessibleTimeRange = false;
+
+  @override void initState() {
+    super.initState();
+    _accessibleTimeRange = isInTimeRange(widget.meeting);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,18 +127,44 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                     padding: const EdgeInsets.all(3.0),
                     child: ElevatedButton(
                       onPressed: (() {
+                        String? id = FirestoreService().getUserID();
+                        if (id == null) {
+                          snackBar(context, "ID not found");
+                        }
+                        if (!_accessibleTimeRange) {
+                          snackBar(context, "Door access only available within 30 minutes of meeting start time");
+                        } 
+                        if (!FirestoreService.guestMap[id]!.completedHealthScreen) {
+                          snackBar(context, "Health Screen must be completed before gaining building access");
+                        }
+                        if (FirestoreService.guestMap[id]!.isSick) {
+                          snackBar(context, "Access is not granted due to symptoms");
+                        }
                         // Code to set door and guest variable in database
-                      }), 
-                      child: const Text("Unlock Door")
+                      }),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: (unlockDoor(widget.meeting)) ? Colors.blue[500] : Colors.grey
+                      ), 
+                      child: const Text("Unlock Door"),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3.0),
                     child: ElevatedButton(
                       onPressed: (() {
+                        String? id = FirestoreService().getUserID();
+                        if (id == null) {
+                          snackBar(context, "ID not found");
+                        }
+                        if (!_accessibleTimeRange) {
+                          snackBar(context, "Door access only available within 30 minutes of meeting start time");
+                        } 
                         // Code to set variable in database
-                      }), 
-                      child: const Text("Health Questionnaire")
+                      }),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: (unlockDoor(widget.meeting)) ? Colors.blue[500] : Colors.grey
+                      ), 
+                      child: const Text("Health Screen"),
                     ),
                   ),
                 ],
@@ -142,5 +174,33 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
         )
       )
     );
+  }
+
+  bool isInTimeRange(Meeting meeting) {
+    DateTime now = DateTime.now();
+    int minutesIncrement = 30;
+    DateTime timeAfterIncrement = now.add(Duration(minutes: minutesIncrement));
+    if (timeAfterIncrement.compareTo(meeting.startTime) < 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  bool unlockDoor(Meeting meeting) {
+    String? id = FirestoreService().getUserID();
+    Guest? guest = FirestoreService.guestMap[id];
+    if (guest == null) {
+      return false;
+    }
+    if (!isInTimeRange(meeting)) {
+      return false;
+    }
+    if (!guest.completedHealthScreen) {
+      return false;
+    }
+    if (guest.isSick) {
+      return false;
+    }
+    return true;
   }
 } 

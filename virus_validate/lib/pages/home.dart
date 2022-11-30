@@ -54,24 +54,6 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const GuestHomePage())
-              );
-            },
-            child: const Icon(Icons.person),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const SymptomQuestionnaire())
-              );
-            },
-            child: const Icon(Icons.coronavirus_rounded),
-          ),
           // Create New Meeting
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -169,24 +151,6 @@ class _GuestHomePageState extends State<GuestHomePage> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const EmployeeHomePage())
-              );
-            },
-            child: const Icon(Icons.person),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const SymptomQuestionnaire())
-              );
-            },
-            child: const Icon(Icons.coronavirus_rounded),
-          ),
           // Create New Meeting
           Padding(
             padding: const EdgeInsets.only(right: 20.0),

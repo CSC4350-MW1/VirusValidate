@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virus_validate/firestore_service.dart';
+import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/pages/authentication.dart';
 import 'package:virus_validate/pages/home.dart';
 import 'package:virus_validate/style/style.dart';
