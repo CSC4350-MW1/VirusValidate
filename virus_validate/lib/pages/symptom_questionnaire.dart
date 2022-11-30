@@ -48,7 +48,15 @@ class _SymptomQuestionnaireState extends State<SymptomQuestionnaire> {
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                 child: ElevatedButton(
                 onPressed: (() {
-                  
+                  _fs.guestCollection.doc(uid!).update(
+                    {
+                      "isSick": true,
+                      "completedHealthScreen": true,
+                    }
+                  );
+                  Navigator.of(context)
+                  ..pop()
+                  ..pop();
                 }), 
                 child: const Text("Yes")
               ),
@@ -57,7 +65,16 @@ class _SymptomQuestionnaireState extends State<SymptomQuestionnaire> {
                 padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                 child: ElevatedButton(
                 onPressed: (() {
-                  
+                  _fs.guestCollection.doc(uid!).update(
+                    {
+                      "isSick": false,
+                      "completedHealthScreen": true,
+                      "unlockToken": true
+                    }
+                  );
+                  Navigator.of(context)
+                  ..pop()
+                  ..pop();
                 }), 
                 child: const Text("No")
               ),
