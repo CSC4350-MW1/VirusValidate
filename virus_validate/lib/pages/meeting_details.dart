@@ -88,11 +88,11 @@ class GuestMeetingDetails extends StatefulWidget {
 }
 
 class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
-  bool _accessibleTimeRange = false;
+  bool accessibleTimeRange = false;
   final FirestoreService _fs = FirestoreService();
   @override void initState() {
     super.initState();
-    _accessibleTimeRange = isInTimeRange(widget.meeting);
+    accessibleTimeRange = isInTimeRange(widget.meeting);
   }
 
   @override
@@ -135,7 +135,7 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                         if (id == null) {
                           snackBar(context, "ID not found");
                         }
-                        if (!_accessibleTimeRange) {
+                        if (!accessibleTimeRange) {
                           snackBar(context, "Door access only available within 30 minutes of meeting start time");
                         } 
                         if (!FirestoreService.guestMap[id]!.completedHealthScreen) {
@@ -167,7 +167,7 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                         if (id == null) {
                           snackBar(context, "ID not found");
                         }
-                        if (!_accessibleTimeRange) {
+                        if (!accessibleTimeRange) {
                           snackBar(context, "Health Screen access only available within 30 minutes of meeting start time");
                         } 
                         Navigator.push(
@@ -176,7 +176,7 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                         );
                       }),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: (_accessibleTimeRange) ? Colors.blue[500] : Colors.grey
+                        backgroundColor: (canShowHealthScreen(widget.meeting)) ? Colors.blue[500] : Colors.grey
                       ), 
                       child: const Text("Health Screen"),
                     ),
@@ -200,6 +200,16 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
       return true;
     }
   }
+
+  bool canShowHealthScreen(Meeting meeting) {
+    String? id = FirestoreService().getUserID();
+    Guest? guest = FirestoreService.guestMap[id];
+    if (accessibleTimeRange && !guest!.completedHealthScreen) {
+      return true;
+    }
+    return false;
+  }
+
   bool unlockDoor(Meeting meeting) {
     String? id = FirestoreService().getUserID();
     Guest? guest = FirestoreService.guestMap[id];
@@ -213,6 +223,9 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
       return false;
     }
     if (guest.isSick) {
+      return false;
+    }
+    if (!guest.unlockToken) {
       return false;
     }
     return true;
