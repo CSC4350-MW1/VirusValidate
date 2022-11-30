@@ -315,7 +315,7 @@ class _EditMeetingPageState extends State<EditMeetingPage> {
   Future<bool> createMeeting() async {
     if (_formKey.currentState!.validate()) {
       try {
-        Map<String, String> guestIDs = {};
+        List<String> guestIDs = [];
         
         for (var guestEmail in guestEmails) {
           // Find Guest ID by searching the db map
@@ -323,14 +323,14 @@ class _EditMeetingPageState extends State<EditMeetingPage> {
           if (id != null) {
             log(id);
             // Add id to map with email as the key
-            guestIDs[guestEmail.text] = id;
+            guestIDs.add(id);
           } else {
             log("ID not found");
           }
           }
 
           // Create Meeting and store document ID to update user lists
-          await _fs.meetingCollection.add(
+          await _fs.meetingCollection.doc(widget.meeting.id).set(
             {
               'title': _meetingTitle.text,
               'description': _meetingDescription.text,
