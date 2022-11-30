@@ -89,7 +89,7 @@ class GuestMeetingDetails extends StatefulWidget {
 
 class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
   bool _accessibleTimeRange = false;
-
+  final FirestoreService _fs = FirestoreService();
   @override void initState() {
     super.initState();
     _accessibleTimeRange = isInTimeRange(widget.meeting);
@@ -142,6 +142,13 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                           snackBar(context, "Access is not granted due to symptoms");
                         }
                         // Code to set door and guest variable in database
+                        _fs.guestCollection.doc(id!).update(
+                          {
+                            "unlockToken": false,
+                            "unlockedDoor": true
+                          }
+                        );
+                        Navigator.pop(context);
                       }),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: (unlockDoor(widget.meeting)) ? Colors.blue[500] : Colors.grey
