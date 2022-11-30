@@ -30,7 +30,7 @@ class _SymptomQuestionnaireState extends State<SymptomQuestionnaire> {
             child: const Icon(Icons.send_sharp),
           )
         ],
-        title: const Text("Health Questionnaire"),
+        title: const Text("Health Screen"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
