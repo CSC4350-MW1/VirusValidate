@@ -157,12 +157,12 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                           snackBar(context, "ID not found");
                         }
                         if (!_accessibleTimeRange) {
-                          snackBar(context, "Door access only available within 30 minutes of meeting start time");
+                          snackBar(context, "Health Screen access only available within 30 minutes of meeting start time");
                         } 
                         // Code to set variable in database
                       }),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: (unlockDoor(widget.meeting)) ? Colors.blue[500] : Colors.grey
+                        backgroundColor: (_accessibleTimeRange) ? Colors.blue[500] : Colors.grey
                       ), 
                       child: const Text("Health Screen"),
                     ),
