@@ -134,18 +134,22 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                         String? id = FirestoreService().getUserID();
                         if (id == null) {
                           snackBar(context, "ID not found");
+                          return ;
                         }
                         if (!accessibleTimeRange) {
                           snackBar(context, "Door access only available within 30 minutes of meeting start time");
+                          return ;
                         } 
                         if (!FirestoreService.guestMap[id]!.completedHealthScreen) {
                           snackBar(context, "Health Screen must be completed before gaining building access");
+                          return ;
                         }
                         if (FirestoreService.guestMap[id]!.isSick) {
                           snackBar(context, "Access is not granted due to symptoms");
+                          return;
                         }
                         // Code to set door and guest variable in database
-                        _fs.guestCollection.doc(id!).update(
+                        _fs.guestCollection.doc(id).update(
                           {
                             "unlockToken": false,
                             "unlockedDoor": true
