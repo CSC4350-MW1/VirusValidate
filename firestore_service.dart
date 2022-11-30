@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:virus_validate/models/guest_model.dart';
 import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/models/employee_model.dart';
+import 'package:virus_validate/models/door_model.dart';
 
 class FirestoreService {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -17,14 +18,20 @@ class FirestoreService {
   static Map<String, Meeting> meetingMap = {};
   static Map<String, Guest> guestMap = {};
   static Map<String, Employee> employeeMap = {};
+  static Map<String, Door> doorMap = {};
 
-  String getUserID() {
-    return auth.currentUser!.uid;
+  String? getUserID() {
+    if (auth.currentUser != null) {
+      return auth.currentUser!.uid;
+    } else {
+      return null;
+    }
   }
 
   final meetingCollection = FirebaseFirestore.instance.collection('Meetings');
   final employeeCollection = FirebaseFirestore.instance.collection('Employees');
   final guestCollection = FirebaseFirestore.instance.collection('Guests');
+  final doorCollection = FirebaseFirestore.instance.collection('Doors');
 
   final StreamController<List<Meeting>> _meetingsController =
       StreamController<List<Meeting>>();
@@ -35,6 +42,16 @@ class FirestoreService {
     guestService();
     employeeService();
     meetingService();
+    doorService();
+  }
+
+  static String? findGuestIDByEmail(String email) {
+    for (var id in guestMap.keys) {
+      if (guestMap[id]!.email == email) {
+        return id;
+      }
+    }
+    return null;
   }
 
   guestService() {
@@ -54,6 +71,7 @@ class FirestoreService {
         }
       }
     });
+    log("Guest Map: ${guestMap.toString()}");
   }
 
   employeeService() {
@@ -91,6 +109,25 @@ class FirestoreService {
         } else {
           meetingMap[meeting_ids[i]] =
               Meeting.fromJson(meeting_ids[i], meetings[i]);
+        }
+      }
+    });
+  }
+
+  doorService() {
+    db.collection("Doors").snapshots().listen((event) {
+      final doors = [];
+      final door_ids = [];
+      for (var doc in event.docs) {
+        doors.add(doc.data());
+        door_ids.add(doc.id);
+      }
+      for (var i = 0; i < doors.length; i++) {
+        if (doorMap.containsKey(door_ids[i])) {
+          doorMap.update(
+              door_ids[i], (value) => Door.fromJson(door_ids[i], doors[i]));
+        } else {
+          doorMap[door_ids[i]] = Door.fromJson(door_ids[i], doors[i]);
         }
       }
     });
