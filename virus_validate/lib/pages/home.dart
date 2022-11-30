@@ -32,7 +32,7 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
     log(uid);
     _meetingStream = FirebaseFirestore.instance
       .collection('Meetings')
-      .where("employee", isEqualTo: uid)
+      .orderBy("startTime", descending: false)
       .snapshots();
   }
   
@@ -90,6 +90,9 @@ class _EmployeeHomeState extends State<EmployeeHomePage> {
                 if (meeting.startTime.compareTo(now) < 0) {
                   return Container();
                 }
+                if (_auth.currentUser!.uid != meeting.employee) {
+                  return Container();
+                }
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -120,16 +123,16 @@ class GuestHomePage extends StatefulWidget {
 
 class _GuestHomePageState extends State<GuestHomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  String? uid;
   late Stream<QuerySnapshot> _meetingStream;
 
   @override
   void initState() {
     super.initState();
-    String uid = _auth.currentUser!.uid;
+    uid = _auth.currentUser!.uid;
     _meetingStream = FirebaseFirestore.instance
       .collection('Meetings')
-      .where("guestList", arrayContains: uid)
+      .orderBy("startTime")
       .snapshots();
   }
   
@@ -173,6 +176,10 @@ class _GuestHomePageState extends State<GuestHomePage> {
                 if (meeting.startTime.compareTo(now) < 0) {
                   return Container();
                 }
+
+                if (!meeting.guestList.contains(_auth.currentUser!.uid)) {
+                  return Container();
+                } 
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
