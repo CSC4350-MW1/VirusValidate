@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virus_validate/firestore_service.dart';
 import 'package:virus_validate/helpers/symptom_card.dart';
 import 'package:virus_validate/style/style.dart';
 
@@ -10,7 +11,8 @@ class SymptomQuestionnaire extends StatefulWidget {
 }
 
 class _SymptomQuestionnaireState extends State<SymptomQuestionnaire> {
-
+  final FirestoreService _fs = FirestoreService();
+  final String? uid = FirestoreService().getUserID();
   List<String> symptoms = [
     "Fever or chills",
     "New or unexplained cough, shortness of breath, or difficulty breathing",
@@ -22,14 +24,6 @@ class _SymptomQuestionnaireState extends State<SymptomQuestionnaire> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          GestureDetector(
-            onTap: () {
-              
-            },
-            child: const Icon(Icons.send_sharp),
-          )
-        ],
         title: const Text("Health Screen"),
       ),
       body: Column(
