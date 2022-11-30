@@ -4,6 +4,7 @@ import 'package:virus_validate/helpers/guest_detail_card.dart';
 import 'package:virus_validate/models/guest_model.dart';
 import 'package:virus_validate/models/meeting_model.dart';
 import 'package:virus_validate/pages/edit_meeting_details.dart';
+import 'package:virus_validate/pages/symptom_questionnaire.dart';
 import 'package:virus_validate/style/style.dart';
 
 class EmployeeMeetingDetails extends StatefulWidget {
@@ -159,7 +160,10 @@ class _GuestMeetingDetailsState extends State<GuestMeetingDetails> {
                         if (!_accessibleTimeRange) {
                           snackBar(context, "Health Screen access only available within 30 minutes of meeting start time");
                         } 
-                        // Code to set variable in database
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => const SymptomQuestionnaire())
+                        );
                       }),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: (_accessibleTimeRange) ? Colors.blue[500] : Colors.grey
